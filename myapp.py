@@ -8,27 +8,27 @@ def home():
 
 @app.route("/vancouver")
 def vancouver():
-    return "This will be the locations to study in Vancouver"
+    return render_template("vancouver.html")
 
 @app.route("/burnaby")
 def burnaby():
-    return "This will be the locations to study in Burnaby"
+    return render_template("burnaby.html")
 
 @app.route("/surrey")
 def surrey():
-    return "This will be the locations to study in Surrey"
+    return render_template("surrey.html")
 
 @app.route("/richmond")
 def richmond():
-    return "This will be the locations to study in Richmond"
+    return render_template("richmond.html")
 
 @app.route("/coquitlam")
 def coquitlam():
-    return "This will be the locations to study in Coquitlam"
+    return render_template("coquitlam.html")
 
 @app.route("/locations")
 def locations():
-    return "This will be all the locations of the study spots in the lower mainland!"
+    return render_template("locations.html")
 
 if __name__ == "__main__":
     app.run()

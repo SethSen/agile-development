@@ -18,6 +18,8 @@
     font-size: 1.5rem;
   }
   
+  /* ------- CSS for the button ------- */
+
   .button-1 {
     align-items: center;
     appearance: none;
@@ -66,4 +68,9 @@
     box-shadow: #d6d6e7 0 3px 7px inset;
     transform: translateY(2px);
   }
+
+  /* ------- CSS for the buttons on Home Page ------- */
   
+  .home-buttons {
+    text-align: center;
+  }
