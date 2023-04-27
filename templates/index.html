@@ -1,13 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home Page</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+{% extends 'base.html' %}
+{% block title %}Home Page{% endblock %}
+{% block content %}
     <link rel="stylesheet" href="/static/main.css" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
     <h1 style="text-align: center;">Locations to study</h1>
     <div class="home-buttons">
       <button class="button-1" role="button" onclick="window.location.href='/vancouver'">Vancouver</button>
@@ -16,6 +10,6 @@
       <button class="button-1" role="button" onclick="window.location.href='/richmond'">Richmond</button>
       <button class="button-1" role="button" onclick="window.location.href='/coquitlam'">Coquitlam</button>
       <button class="button-1" role="button" onclick="window.location.href='/locations'">All Locations</button>
-  </div>
-  </body>
-</html>
+    </div>
+{% endblock %}
+

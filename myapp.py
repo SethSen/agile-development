@@ -1,4 +1,5 @@
 from flask import Flask, redirect, url_for, render_template
+# import sqlalchemy
 
 app = Flask(__name__)
 
@@ -30,5 +31,9 @@ def coquitlam():
 def locations():
     return render_template("locations.html")
 
+@app.route("/admin")
+def admin():
+    return render_template("admin.html")
+
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
