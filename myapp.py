@@ -1,7 +1,8 @@
-from flask import Flask, redirect, url_for, render_template
+from flask import Flask, redirect, url_for, render_template, request
 # import sqlalchemy
 
 app = Flask(__name__)
+acc = {"admin":"admin"}
 
 @app.route("/")
 def home():
@@ -34,6 +35,19 @@ def locations():
 @app.route("/admin")
 def admin():
     return render_template("admin.html")
+
+@app.route("/login")
+def login():
+    return render_template("login.html")
+
+@app.route("/login", methods=["POST"])
+def auth():
+    user = request.form.get("user")
+    password = request.form.get("password")
+    if user in acc and password == acc[user]:
+        return redirect("admin")
+    else:
+        return redirect("login")
 
 if __name__ == "__main__":
     app.run(debug=True)
