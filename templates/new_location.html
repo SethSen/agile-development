@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% block title %}Add New Location{% endblock %}
+{% block content %}
+    <link rel="stylesheet" href="/static/admin.css" />
+    <h1>Add New Location</h1>
+    <div class="new_location">
+        <form action="/admin/new" method="POST">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input
+              type="name"
+              id="name"
+              name="name"
+              class="form-control"
+              placeholder="Enter Name"
+            />
+          </div>
+          <div class="form-group">
+            <label for="city">City</label>
+            <input
+              type="city"
+              id="city"
+              name="city"
+              class="form-control"
+              placeholder="Enter City"
+            />
+          </div>
+          <div class="form-group">
+            <label for="address">Address</label>
+            <input
+              type="address"
+              id="address"
+              name="address"
+              class="form-control"
+              placeholder="Enter Address"
+            />
+          </div>
+          <div class="form-group">
+            <label for="hours">Hours</label>
+            <input
+              type="hours"
+              id="hours"
+              name="hours"
+              class="form-control"
+              placeholder="Enter Hours"
+            />
+          </div>
+          <div class="form-group">
+            <label for="link">Link</label>
+            <input
+              type="link"
+              id="link"
+              name="link"
+              class="form-control"
+              placeholder="Enter Link"
+            />
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone</label>
+            <input
+              type="phone"
+              id="phone"
+              name="phone"
+              class="form-control"
+              placeholder="Enter Phone"
+            />
+          </div>
+          <div class="form-group">
+            <label for="type">Type</label>
+            <input
+              type="type"
+              id="type"
+              name="type"
+              class="form-control"
+              placeholder="Enter Type"
+            />
+          </div>
+          <button type="submit">Add</button>
+        </form>
+      </div>
+{% endblock %}
