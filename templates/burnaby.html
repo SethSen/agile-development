@@ -1,19 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Burnaby</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="stylesheet" href="/static/burnaby.css" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
-    <!-- Home button -->
-    <div class="buttons">
-        <button class="button-1" role="button" onclick="window.location.href='/'">Home</button>
-    </div>
-
-    <p>Burnaby</p>
-
-  </body>
-</html>
+{% extends 'base.html' %}
+{% block title %}Burnaby{% endblock %}
+{% block content %}
+  <link rel="stylesheet" href="/static/burnaby.css" />
+  <h1>Burnaby</h1>
+{% endblock %}
