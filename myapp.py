@@ -1,7 +1,10 @@
-from flask import Flask, redirect, url_for, render_template, request
+from flask import Flask, redirect, url_for, render_template, request, session
+import secrets
+
 # import sqlalchemy
 
 app = Flask(__name__)
+app.secret_key = secrets.token_hex(12)
 acc = {"admin":"admin"}
 data = [
     {
@@ -67,13 +70,18 @@ def admin():
 
 @app.route("/login")
 def login():
+    # Check if admin is logged in through session cookie
+    if "admin" in session:
+        return render_template("admin.html")
     return render_template("login.html")
 
 @app.route("/login", methods=["POST"])
 def auth():
     user = request.form.get("user")
     password = request.form.get("password")
+    # Verify admin account info and create log in session
     if user in acc and password == acc[user]:
+        session["admin"] = user
         return redirect("admin")
     else:
         return redirect("login")
