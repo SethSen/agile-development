@@ -66,25 +66,34 @@ def locations():
 
 @app.route("/admin")
 def admin():
-    return render_template("admin.html")
+    if "admin" in session:
+        return render_template("admin.html")
+    return redirect("login")
 
 @app.route("/login")
 def login():
     # Check if admin is logged in through session cookie
     if "admin" in session:
-        return render_template("admin.html")
+        return redirect("admin")
     return render_template("login.html")
 
 @app.route("/login", methods=["POST"])
 def auth():
     user = request.form.get("user")
     password = request.form.get("password")
-    # Verify admin account info and create log in session
+    # Verify admin login entry and create log in session
     if user in acc and password == acc[user]:
         session["admin"] = user
         return redirect("admin")
     else:
         return redirect("login")
+
+@app.route("/logout")
+def logout():
+    # If admin session exists, remove cookie to log out.
+    if "admin" in session:
+        session.pop("admin")
+    return redirect("/")
 
 if __name__ == "__main__":
     app.run(debug=True)
