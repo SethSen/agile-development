@@ -39,22 +39,30 @@ div {
   bottom: 0;
   left: 0;
   right: 0;
-  /* justify-items: center */
+  z-index: -1;
+  justify-items: center
 }
-div h2{
-  text-align: center;
-}
+
 .div_style{
   grid-row:3/4 ;
   display: flex;
   justify-content: space-evenly;
+  margin-top: 50px;
 }
 div h2{
-  grid-row:2/3;
+  grid-row:1/2;
   text-align: center;
   color: white;
   font-family: 'Sigmar', cursive;
   font-size: 70px;
+  margin-bottom: 0;
+}
+
+div p{
+  color: white;
+  text-align: center;
+  width: 50%;
+  margin-top: 0px;
 }
 
 footer {
