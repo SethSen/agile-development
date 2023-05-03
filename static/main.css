@@ -1,76 +1,132 @@
 * {
-    box-sizing: border-box;
-  }
-  
-  body {
-    margin: 0;
-    font-family: system-ui, sans-serif;
-    color: black;
-    background-color: white;
-  }
-  
-  main {
-    padding: 1rem;
-  }
-  
-  h1 {
-    font-weight: bold;
-    font-size: 1.5rem;
-  }
-  
-  /* ------- CSS for the button ------- */
+  box-sizing: border-box;
+}
 
-  .button-1 {
-    align-items: center;
-    appearance: none;
-    background-color: #fcfcfd;
-    border-radius: 4px;
-    border-width: 0;
-    box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,
-      rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #d6d6e7 0 -3px 0 inset;
-    box-sizing: border-box;
-    color: #36395a;
-    cursor: pointer;
-    display: inline-flex;
-    font-family: 'JetBrains Mono', monospace;
-    height: 35px;
-    justify-content: center;
-    line-height: 1;
-    list-style: none;
-    overflow: hidden;
-    padding-left: 16px;
-    padding-right: 16px;
-    margin: 5px;
-    position: relative;
-    text-align: left;
-    text-decoration: none;
-    transition: box-shadow 0.15s, transform 0.15s;
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: manipulation;
-    white-space: nowrap;
-    will-change: box-shadow, transform;
-    font-size: 18px;
-  }
-  
-  .button-1:focus {
-    box-shadow: #d6d6e7 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px,
-      rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #d6d6e7 0 -3px 0 inset;
-  }
-  
-  .button-1:hover {
-    box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px,
-      rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #d6d6e7 0 -3px 0 inset;
-    transform: translateY(-2px);
-  }
-  
-  .button-1:active {
-    box-shadow: #d6d6e7 0 3px 7px inset;
-    transform: translateY(2px);
-  }
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  color: black;
+  background-color: white;
+}
 
-  /* ------- CSS for the buttons on Home Page ------- */
-  
-  .home-buttons {
-    text-align: center;
-  }
+main {
+  padding: 1rem;
+}
+
+h1 {
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+nav {
+  display: grid;
+  grid-template-columns: 0.5fr 1fr repeat(6,1fr);
+  /* border: 2px solid rgb(80, 173, 189);
+  border-radius: 10px; */
+  margin: 0px 10px 5px 10px;
+  align-items: center;
+  grid-row: 1/2;
+}
+div {
+  display: grid;
+  grid-template-rows: repeat(5,1fr);
+  background-image: url("/static/image/background.jpg");
+  background-size: 99% 99%;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: absolute;
+  top: 11.5%;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  /* justify-items: center */
+}
+div h2{
+  text-align: center;
+}
+.div_style{
+  grid-row:3/4 ;
+  display: flex;
+  justify-content: space-evenly;
+}
+div h2{
+  grid-row:2/3;
+  text-align: center;
+  color: white;
+  font-family: 'Sigmar', cursive;
+  font-size: 70px;
+}
+
+footer {
+  display: flex;
+  color: white;
+  position: absolute;
+  bottom: 0;
+  width: 99%;
+  justify-content: center;
+}
+/* ------- CSS for the button ------- */
+
+.button-1 {
+  align-items: center;
+  appearance: none;
+  background-color: #fcfcfd;
+  border-radius: 4px;
+  border-width: 0;
+  box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,
+    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #d6d6e7 0 -3px 0 inset;
+  box-sizing: border-box;
+  color: #36395a;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: 'JetBrains Mono', monospace;
+  height: 35px;
+  justify-content: center;
+  line-height: 1;
+  list-style: none;
+  overflow: hidden;
+  padding-left: 16px;
+  padding-right: 16px;
+  margin: 5px;
+  position: relative;
+  text-align: left;
+  text-decoration: none;
+  transition: box-shadow 0.15s, transform 0.15s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  will-change: box-shadow, transform;
+  font-size: 18px;
+}
+
+.button-1:focus {
+  box-shadow: #d6d6e7 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px,
+    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #d6d6e7 0 -3px 0 inset;
+}
+.m{
+  display: flex;
+  justify-content: space-between;
+  margin:20px;
+}
+.button-1:hover {
+  box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px,
+    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #d6d6e7 0 -3px 0 inset;
+  transform: translateY(-2px);
+}
+.one{
+  grid-column: 2/3;
+}
+.two{
+  grid-column:8/-1 ;
+}
+.button-1:active {
+  box-shadow: #d6d6e7 0 3px 7px inset;
+  transform: translateY(2px);
+}
+
+/* ------- CSS for the buttons on Home Page ------- */
+
+.home-buttons {
+  text-align: center;
+}
