@@ -3,45 +3,80 @@
 {% block content %}
     <link rel="stylesheet" href="/static/admin.css" />
     <h1>Admin page</h1>
-    
+    <br>
     <h2>Add New Location</h2>
-    <form method="POST" action="{{ url_for('admin') }}">
-        {{ form.csrf_token }}
-        {{ form.name.label }} {{ form.name }}
-        {{ form.city.label }} {{ form.city }}
-        {{ form.address.label }} {{ form.address }}
-        {{ form.hours.label }} {{ form.hours }}
-        {{ form.link.label }} {{ form.link }}
-        {{ form.phone.label }} {{ form.phone }}
-        {{ form.location_type.label }} {{ form.location_type }}
-        {{ form.submit }}
-    </form>
-    
+    <br>
+    <div class="shadow p-3 mb-5 bg-body-tertiary rounded">
+        <form method="POST" action="{{ url_for('admin') }}">
+            {{ form.csrf_token }}
+            {{ form.name.label }} {{ form.name }}
+            {{ form.city.label }} {{ form.city }}
+            <br> <br>
+            {{ form.address.label }} {{ form.address }}
+            {{ form.hours.label }} {{ form.hours }}
+            <br> <br>
+            {{ form.link.label }} {{ form.link }}
+            {{ form.phone.label }} {{ form.phone }}
+            <br> <br>
+            {{ form.location_type.label }} {{ form.location_type }}
+            <br> <br>
+            {{ form.submit }}
+        </form>
+    </div>
+    <br>
     <h2>Current Locations</h2>
-    <table>
-        <tr>
-            <th>Name</th>
-            <th>City</th>
-            <th>Address</th>
-            <th>Hours</th>
-            <th>Link</th>
-            <th>Phone</th>
-            <th>Type</th>
-            <th>Action</th>
-        </tr>
-        {% for location in locations %}
-        <tr>
-            <td>{{ location.name }}</td>
-            <td>{{ location.city }}</td>
-            <td>{{ location.address }}</td>
-            <td>{{ location.hours }}</td>
-            <td>{{ location.link }}</td>
-            <td>{{ location.phone }}</td>
-            <td>{{ location.location_type }}</td>
-            <td><a href="{{ url_for('delete_location', location_id=location.id) }}">Delete</a></td>
-        </tr>
-        {% endfor %}
+    <div class="d-flex justify-content-between">
+        <div>
+            <button type="button" class="btn btn-primary mr-2" onclick="window.location.href='/admin?filter_type=Cafe'">Cafe</button>
+            <button type="button" class="btn btn-primary mr-2" onclick="window.location.href='/admin?filter_type=School'">School</button>
+            <button type="button" class="btn btn-primary mr-2" onclick="window.location.href='/admin?filter_type=Library'">Library</button>
+            <button type="button" class="btn btn-primary mr-2" onclick="window.location.href='/admin?filter_type=Other'">Other</button>
+            <button type="button" class="btn btn-primary" onclick="window.location.href='/admin'">All</button>
+          </div>
+        <form method="GET" action="{{ url_for('locations') }}" class="form-inline">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search_query" value="{{ search_query }}">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </div>
+    <br>
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>City</th>
+                <th>Address</th>
+                <th>Hours</th>
+                <th>Link</th>
+                <th>Phone</th>
+                <th>Type</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for location in locations %}
+            <tr>
+                <td>{{ location.name }}</td>
+                <td>{{ location.city }}</td>
+                <td>{{ location.address }}</td>
+                <td>{{ location.hours }}</td>
+                <td>{{ location.link }}</td>
+                <td>{{ location.phone }}</td>
+                <td>{{ location.location_type }}</td>
+                <td><a href="{{ url_for('delete_location', location_id=location.id) }}" class="btn btn-danger btn-sm">Delete</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
     </table>
-
-    <button type="button" onclick="window.location.href='/logout'">Logout</button>
+    <button type="button" class="btn btn-primary" onclick="window.location.href='/logout'">Logout</button>
+    <script>
+        async function fetchLocations(filterType) {
+            const response = await fetch(`/admin?filter_type=${filterType}`);
+            const text = await response.text();
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(text, 'text/html');
+            const newLocationsTbody = doc.getElementById('locations-tbody');
+            const locationsTbody = document.getElementById('locations-tbody');
+            locationsTbody.innerHTML = newLocationsTbody.innerHTML;
+        }
+    </script>
 {% endblock %}

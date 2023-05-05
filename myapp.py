@@ -51,75 +51,60 @@ class UserForm(FlaskForm):
 
 app.secret_key = secrets.token_hex(12)
 acc = {"admin":"admin"}
-# data = [
-#     {
-#         "name":"BCIT",
-#         "city": "Vancouver",
-#         "address":"555 Seymour",
-#         "hours":"08:00 - 17:00",
-#         "link":"https://www.bcit.ca/",
-#         "phone":"(604) 434-5734",
-#         "type":"uni",
-#     },
-#     {
-#         "name":"BCIT",
-#         "city": "Burnaby",
-#         "address":"3700 Willingdon Ave",
-#         "hours":"08:00 - 17:00",
-#         "link":"https://www.bcit.ca/",
-#         "phone":"(604) 434-5734",
-#         "type":"uni",
-#     },
-#     {
-#         "name":"UBC",
-#         "city": "Vancouver",
-#         "address":"2329 West Mall",
-#         "hours":"07:00 - 16:00",
-#         "link":"https://www.ubc.ca/",
-#         "number":"(604) 822-2211",
-#         "type":"uni",
-#     },
-# ]
 
 @app.route("/")
 def home():
     return render_template("index.html")
 
-# Shows locations in Vancouver
+# Allowing user to filer and search for locations
+def get_filtered_locations(city=None):
+    search_query = request.args.get("search_query")
+    filter_type = request.args.get("filter_type")
+    query = Locations.query
+
+    if city:
+        query = query.filter_by(city=city)
+
+    if search_query:
+        search_query = f"%{search_query.lower()}%"
+        query = query.filter(Locations.name.ilike(search_query))
+    elif filter_type:
+        if filter_type == "Other":
+            query = query.filter(Locations.location_type.notin_(["Cafe", "School", "Library"]))
+        else:
+            query = query.filter_by(location_type=filter_type)
+
+    return query.all(), filter_type, search_query
+
 @app.route("/vancouver")
 def vancouver():
-    vancouver_locations = Locations.query.filter_by(city="Vancouver").all()
-    return render_template("vancouver.html", locations=vancouver_locations)
+    locations, filter_type, search_query = get_filtered_locations(city="Vancouver")
+    return render_template("vancouver.html", locations=locations, filter_type=filter_type, search_query=search_query)
 
-# Shows locations in Burnaby
 @app.route("/burnaby")
 def burnaby():
-    burnaby_locations = Locations.query.filter_by(city="Burnaby").all()
-    return render_template("burnaby.html", locations=burnaby_locations)
+    locations, filter_type, search_query = get_filtered_locations(city="Burnaby")
+    return render_template("burnaby.html", locations=locations, filter_type=filter_type, search_query=search_query)
 
-# Shows locations in Surrey
 @app.route("/surrey")
 def surrey():
-    surrey_locations = Locations.query.filter_by(city="Surrey").all()
-    return render_template("surrey.html", locations=surrey_locations)
+    locations, filter_type, search_query = get_filtered_locations(city="Surrey")
+    return render_template("surrey.html", locations=locations, filter_type=filter_type, search_query=search_query)
 
-# Shows locations in Richmond
 @app.route("/richmond")
 def richmond():
-    richmond_locations = Locations.query.filter_by(city="Richmond").all()
-    return render_template("richmond.html", locations=richmond_locations)
+    locations, filter_type, search_query = get_filtered_locations(city="Richmond")
+    return render_template("richmond.html", locations=locations, filter_type=filter_type, search_query=search_query)
 
-# Shows locations in Coquitlam
 @app.route("/coquitlam")
 def coquitlam():
-    coquitlam_locations = Locations.query.filter_by(city="Coquitlam").all()
-    return render_template("coquitlam.html", locations=coquitlam_locations)
+    locations, filter_type, search_query = get_filtered_locations(city="Coquitlam")
+    return render_template("coquitlam.html", locations=locations, filter_type=filter_type, search_query=search_query)
 
-# Shows locations in all locations
 @app.route("/locations")
 def locations():
-    all_locations = Locations.query.all()
-    return render_template("locations.html", locations=all_locations)
+    locations, filter_type, search_query = get_filtered_locations()
+    return render_template("locations.html", locations=locations, filter_type=filter_type, search_query=search_query)
 
 # Allow admin to delete locations
 @app.route("/admin/delete/<int:location_id>")
@@ -150,8 +135,21 @@ def admin():
 
             return redirect(url_for("admin"))
 
-        locations = Locations.query.all()
-        return render_template("admin.html", form=form, locations=locations)
+        search_query = request.args.get("search_query")
+        filter_type = request.args.get("filter_type")
+
+        if search_query:
+            search_query = f"%{search_query.lower()}%"
+            locations = Locations.query.filter(Locations.name.ilike(search_query)).all()
+        elif filter_type:
+            if filter_type == "Other":
+                locations = Locations.query.filter(Locations.location_type.notin_(["Cafe", "School", "Library"])).all()
+            else:
+                locations = Locations.query.filter_by(location_type=filter_type).all()
+        else:
+            locations = Locations.query.all()
+
+        return render_template("admin.html", form=form, locations=locations, filter_type=filter_type, search_query=search_query)
     return redirect("login")
 
 
