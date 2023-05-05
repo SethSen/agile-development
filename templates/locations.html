@@ -3,4 +3,29 @@
 {% block content %}
   <link rel="stylesheet" href="/static/locations.css" />
   <h1>All Locations</h1>
+  <table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Hours</th>
+            <th>Link</th>
+            <th>Phone</th>
+            <th>Type</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for location in locations %}
+        <tr>
+            <td>{{ location.name }}</td>
+            <td>{{ location.city }}</td>
+            <td>{{ location.address }}</td>
+            <td>{{ location.hours }}</td>
+            <td>{{ location.link }}</td>
+            <td>{{ location.phone }}</td>
+            <td>{{ location.type }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+  </table>
 {% endblock %}

@@ -94,7 +94,7 @@
     filter: brightness(200%);
   }
   details::before {
-    content: "{Insert Name Here}";
+    content: "EduLocation";
     color: var(--secoColor);
     position: absolute;
     margin-left: 50px;

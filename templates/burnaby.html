@@ -3,4 +3,30 @@
 {% block content %}
   <link rel="stylesheet" href="/static/burnaby.css" />
   <h1>Burnaby</h1>
+  <table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Hours</th>
+            <th>Link</th>
+            <th>Phone</th>
+            <th>Type</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for location in locations %}
+        {% if location.city == "Burnaby" %}
+        <tr>
+            <td>{{ location.name }}</td>
+            <td>{{ location.address }}</td>
+            <td>{{ location.hours }}</td>
+            <td>{{ location.link }}</td>
+            <td>{{ location.phone }}</td>
+            <td>{{ location.type }}</td>
+        </tr>
+        {% endif %}
+        {% endfor %}
+    </tbody>
+  </table>
 {% endblock %}

@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 {% block title %}Home Page{% endblock %}
 {% block content %}
-    <link rel="stylesheet" href="/static/main.css" />
-    <h1 style="text-align: center;">Locations to study</h1>
+    
+    <!-- <h1 style="text-align: center;">Locations to study</h1>
     <div class="home-buttons">
       <button class="button-1" role="button" onclick="window.location.href='/vancouver'">Vancouver</button>
       <button class="button-1" role="button" onclick="window.location.href='/burnaby'">Burnaby</button>
@@ -10,6 +10,26 @@
       <button class="button-1" role="button" onclick="window.location.href='/richmond'">Richmond</button>
       <button class="button-1" role="button" onclick="window.location.href='/coquitlam'">Coquitlam</button>
       <button class="button-1" role="button" onclick="window.location.href='/locations'">All Locations</button>
-    </div>
+    </div> -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sigmar&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/main.css" />
+    <div >
+      <h2>Find some places to study</h2>
+      <p>The EduLocation is the website that helps you to find the best place to study. In there, you can find all of the places based on your own personal requirements. You can search for the places in Vanvouer, Burnaby, Surrey, Richmond and Coquitlam. In the future we may update more.</p>
+      <span class="div_style">
+        <button class="button-1" role="button" onclick="window.location.href='/vancouver'">Vancouver</button>
+        <button class="button-1" role="button" onclick="window.location.href='/burnaby'">Burnaby</button>
+        <button class="button-1" role="button" onclick="window.location.href='/surrey'">Surrey</button>
+        <button class="button-1" role="button" onclick="window.location.href='/richmond'">Richmond</button>
+        <button class="button-1" role="button" onclick="window.location.href='/coquitlam'">Coquitlam</button>
+        <button class="button-1" role="button" onclick="window.location.href='/locations'">All Locations</button>
+      </span>
+    </div>  
+    <footer>
+      <p style="margin-right: 5px;">About</p>
+      <p style="margin-left: 5px;">Contact</p>
+    </footer>
 {% endblock %}
 

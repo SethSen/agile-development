@@ -3,4 +3,45 @@
 {% block content %}
     <link rel="stylesheet" href="/static/admin.css" />
     <h1>Admin page</h1>
+    
+    <h2>Add New Location</h2>
+    <form method="POST" action="{{ url_for('admin') }}">
+        {{ form.csrf_token }}
+        {{ form.name.label }} {{ form.name }}
+        {{ form.city.label }} {{ form.city }}
+        {{ form.address.label }} {{ form.address }}
+        {{ form.hours.label }} {{ form.hours }}
+        {{ form.link.label }} {{ form.link }}
+        {{ form.phone.label }} {{ form.phone }}
+        {{ form.location_type.label }} {{ form.location_type }}
+        {{ form.submit }}
+    </form>
+    
+    <h2>Current Locations</h2>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>City</th>
+            <th>Address</th>
+            <th>Hours</th>
+            <th>Link</th>
+            <th>Phone</th>
+            <th>Type</th>
+            <th>Action</th>
+        </tr>
+        {% for location in locations %}
+        <tr>
+            <td>{{ location.name }}</td>
+            <td>{{ location.city }}</td>
+            <td>{{ location.address }}</td>
+            <td>{{ location.hours }}</td>
+            <td>{{ location.link }}</td>
+            <td>{{ location.phone }}</td>
+            <td>{{ location.location_type }}</td>
+            <td><a href="{{ url_for('delete_location', location_id=location.id) }}">Delete</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <button type="button" onclick="window.location.href='/logout'">Logout</button>
 {% endblock %}
