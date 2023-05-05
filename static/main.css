@@ -25,7 +25,6 @@ h1 {
   background-size: 99% 99%;
   background-repeat: no-repeat;
   background-position: center;
-  position: absolute;
   top: 65px;
   bottom: 0;
   left: 0;
@@ -33,9 +32,7 @@ h1 {
   z-index: -1;
   justify-items: center
 }
-.des_style{
-  grid-row:5/-1 ;
-}
+
 .div_style{
   grid-row:2/3 ;
   display: flex;
@@ -58,14 +55,6 @@ div p{
   width: 50%;
 }
 
-footer {
-  display: flex;
-  color: white;
-  position: absolute;
-  bottom: 0;
-  width: 99%;
-  justify-content: center;
-}
 /* ------- CSS for the button ------- */
 
 .button-1 {
