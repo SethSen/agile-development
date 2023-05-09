@@ -3,6 +3,7 @@
 {% block content %}
     <link rel="stylesheet" href="/static/admin.css" />
     <h1>Admin page</h1>
+    <button type="button" class="btn btn-primary" onclick="window.location.href='/user_data'">User Data</button>
     <br>
     <h2>Add New Location</h2>
     <br>
@@ -68,15 +69,4 @@
         </tbody>
     </table>
     <button type="button" class="btn btn-primary" onclick="window.location.href='/logout'">Logout</button>
-    <script>
-        async function fetchLocations(filterType) {
-            const response = await fetch(`/admin?filter_type=${filterType}`);
-            const text = await response.text();
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(text, 'text/html');
-            const newLocationsTbody = doc.getElementById('locations-tbody');
-            const locationsTbody = document.getElementById('locations-tbody');
-            locationsTbody.innerHTML = newLocationsTbody.innerHTML;
-        }
-    </script>
 {% endblock %}
