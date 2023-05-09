@@ -25,6 +25,7 @@ h1 {
   background-size: 99% 99%;
   background-repeat: no-repeat;
   background-position: center;
+  position: static;
   top: 65px;
   bottom: 0;
   left: 0;
