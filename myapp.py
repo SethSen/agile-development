@@ -1,51 +1,13 @@
-<<<<<<< HEAD
-from flask import Flask, redirect, url_for, render_template, request, flash
-# import sqlalchemy
-=======
 from flask import Flask, redirect, url_for, render_template, request, session
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired
 import secrets
->>>>>>> stable
 
 
 # Create Flask App
 app = Flask(__name__)
-<<<<<<< HEAD
-app.secret_key = "admin"
-acc = {"admin":"admin"}
-data = [
-    {
-        "name": "BCIT",
-        "city": "Vancouver",
-        "address": "555 Seymour",
-        "hours": "08:00 - 17:00",
-        "link": "https://www.bcit.ca/",
-        "phone": "(604) 434-5734",
-        "type": "uni",
-    },
-    {
-        "name": "BCIT",
-        "city": "Burnaby",
-        "address": "3700 Willingdon Ave",
-        "hours": "08:00 - 17:00",
-        "link": "https://www.bcit.ca/",
-        "phone": "(604) 434-5734",
-        "type": "uni",
-    },
-    {
-        "name": "UBC",
-        "city": "Vancouver",
-        "address": "2329 West Mall",
-        "hours": "07:00 - 16:00",
-        "link": "https://www.ubc.ca/",
-        "phone": "(604) 822-2211",
-        "type": "uni",
-    },
-]
-=======
 
 # SQL Alchemy Database
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///locations.db'
@@ -109,7 +71,6 @@ class UserForm(FlaskForm):
 
 app.secret_key = secrets.token_hex(12)
 acc = {"admin":"admin"}
->>>>>>> stable
 
 @app.route("/")
 def home():
@@ -254,35 +215,6 @@ def delete_request(request_id):
 
 @app.route("/admin", methods=["GET", "POST"])
 def admin():
-<<<<<<< HEAD
-    return render_template("admin.html", locations = data)
-
-@app.route("/admin/new")
-def new_location():
-    return render_template("new_location.html")
-
-@app.route("/admin/new", methods=["POST"])
-def add_location():
-    new = request.form
-    missing = []
-    for key, value in new.items():
-        if value == "":
-            missing.append(key)
-    if missing:
-        return f"The information provided is invalid (missing: {', '.join(missing)})", 400
-    else:
-        location = {
-        "name": new["name"],
-        "city": new["city"],
-        "address": new["address"],
-        "hours": new["hours"],
-        "link": new["link"],
-        "phone": new["phone"],
-        "type": new["type"],
-        }
-        data.append(location)
-        return redirect("/admin")        
-=======
     if "admin" in session:
         form = UserForm()
         search_query = request.args.get("search_query")
@@ -323,7 +255,6 @@ def new_location():
             return redirect(url_for("admin"))
         return render_template("new_location.html", form=form)
     return redirect("login")
->>>>>>> stable
 
 @app.route("/login")
 def login():
