@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}Add New Location{% endblock %}
+{% block content %}
+    <link rel="stylesheet" href="/static/admin.css" />
+    <h2>Add New Location</h2>
+    <br>
+    <div class="shadow p-3 mb-5 bg-body-tertiary rounded">
+        <form method="POST" action="{{ url_for('new_location') }}">
+            {{ form.csrf_token }}
+            {{ form.name.label }} {{ form.name }}
+            {{ form.city.label }} {{ form.city }}
+            <br> <br>
+            {{ form.address.label }} {{ form.address }}
+            {{ form.hours.label }} {{ form.hours }}
+            <br> <br>
+            {{ form.link.label }} {{ form.link }}
+            {{ form.phone.label }} {{ form.phone }}
+            <br> <br>
+            {{ form.location_type.label }} {{ form.location_type }}
+            <br> <br>
+            {{ form.submit }}
+        </form>
+    </div>
+{% endblock %}
