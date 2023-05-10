@@ -20,7 +20,7 @@ db = SQLAlchemy(app)
 #Table consist of: name, location, hours of operation, contact information, link to website, type of location
 class Locations(db.Model):
     id = db.Column("id", db.Integer, primary_key=True)
-    name = db.Column(db.String(100), nullable=False, unique=True)
+    name = db.Column(db.String(100), nullable=False, unique=False)
     city = db.Column(db.String(100))
     address = db.Column(db.String(100), unique=True)
     hours = db.Column(db.String(100))
@@ -40,7 +40,7 @@ class Locations(db.Model):
 # Allowing user to request a location
 class RequestLocation(db.Model):
     id = db.Column("id", db.Integer, primary_key=True)
-    name = db.Column(db.String(100), nullable=False, unique=True)
+    name = db.Column(db.String(100), nullable=False)
     city = db.Column(db.String(100))
     address = db.Column(db.String(100), unique=True)
     hours = db.Column(db.String(100))

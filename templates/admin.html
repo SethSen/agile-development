@@ -19,7 +19,13 @@
             {{ form.link.label }} {{ form.link }}
             {{ form.phone.label }} {{ form.phone }}
             <br> <br>
-            {{ form.location_type.label }} {{ form.location_type }}
+            {{ form.type.label }}
+            <select>
+                <option value="Cafe">Cafe</option>
+                <option value="School">School</option>
+                <option value="Library">Library</option>
+                <option value="Other">Other</option>
+              </select>
             <br> <br>
             {{ form.submit }}
         </form>
