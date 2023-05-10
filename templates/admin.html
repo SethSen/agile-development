@@ -5,26 +5,6 @@
     <h1>Admin page</h1>
     <button type="button" class="btn btn-primary" onclick="window.location.href='/user_data'">User Data</button>
     <button type="button" class="btn btn-primary" onclick="window.location.href='/admin/new_location'">Add New Location</button>
-    <!-- <br>
-    <h2>Add New Location</h2>
-    <br>
-    <div class="shadow p-3 mb-5 bg-body-tertiary rounded">
-        <form method="POST" action="{{ url_for('admin') }}">
-            {{ form.csrf_token }}
-            {{ form.name.label }} {{ form.name }}
-            {{ form.city.label }} {{ form.city }}
-            <br> <br>
-            {{ form.address.label }} {{ form.address }}
-            {{ form.hours.label }} {{ form.hours }}
-            <br> <br>
-            {{ form.link.label }} {{ form.link }}
-            {{ form.phone.label }} {{ form.phone }}
-            <br> <br>
-            {{ form.location_type.label }} {{ form.location_type }}
-            <br> <br>
-            {{ form.submit }}
-        </form>
-    </div> -->
     <br>
     <h2>Current Locations</h2>
     <div class="d-flex justify-content-between">
@@ -64,7 +44,7 @@
                 <td>{{ location.link }}</td>
                 <td>{{ location.phone }}</td>
                 <td>{{ location.location_type }}</td>
-                <td><a href="{{ url_for('delete_location', location_id=location.id) }}" class="btn btn-danger btn-sm">Delete</a></td>
+                <td><a href="{{ url_for('edit_location', location_id=location.id) }}" class="btn btn-danger btn-sm">Edit</a></td>
             </tr>
             {% endfor %}
         </tbody>

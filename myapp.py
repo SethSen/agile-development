@@ -175,7 +175,25 @@ def user_data():
     else:
         return redirect("login")
 
-
+@app.route("/admin/edit/<int:location_id>")
+def edit_location(location_id, methods=["GET", "POST"]):
+    if "admin" in session:
+        location_to_edit = Locations.query.get_or_404(location_id)
+        form = UserForm()
+        # Allowing admin to edit locations
+        if request.method == "POST" and form.validate_on_submit():
+            location_to_edit.name = form.name.data
+            location_to_edit.city = form.city.data
+            location_to_edit.address = form.address.data
+            location_to_edit.hours = form.hours.data
+            location_to_edit.link = form.link.data
+            location_to_edit.phone = form.phone.data
+            location_to_edit.location_type = form.location_type.data
+            db.session.commit()
+            return redirect(url_for("admin"))
+        
+        return render_template("edit_location.html", form=form, location=location_to_edit)
+    return redirect(url_for("admin"))
 
 # Allow admin to delete locations
 @app.route("/admin/delete/<int:location_id>")
@@ -199,22 +217,6 @@ def delete_request(request_id):
 def admin():
     if "admin" in session:
         form = UserForm()
-        # # Allowing admin to add locations
-        # if request.method == "POST" and form.validate_on_submit():
-        #     name = form.name.data
-        #     city = form.city.data
-        #     address = form.address.data
-        #     hours = form.hours.data
-        #     link = form.link.data
-        #     phone = form.phone.data
-        #     location_type = form.location_type.data
-
-        #     new_location = Locations(name=name, city=city, address=address, hours=hours, link=link, phone=phone, location_type=location_type)
-        #     db.session.add(new_location)
-        #     db.session.commit()
-
-        #     return redirect("admin")
-
         search_query = request.args.get("search_query")
         filter_type = request.args.get("filter_type")
 
@@ -250,8 +252,9 @@ def new_location():
             db.session.add(new_location)
             db.session.commit()
 
-            return redirect("/admin")
+            return redirect(url_for("admin"))
         return render_template("new_location.html", form=form)
+    return redirect("login")
 
 @app.route("/login")
 def login():
