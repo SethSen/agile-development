@@ -175,8 +175,6 @@ def user_data():
     else:
         return redirect("login")
 
-
-
 # Allow admin to delete locations
 @app.route("/admin/delete/<int:location_id>")
 def delete_location(location_id):
