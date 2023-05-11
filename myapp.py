@@ -8,7 +8,6 @@ import secrets
 
 # Create Flask App
 app = Flask(__name__)
-
 # SQL Alchemy Database
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///locations.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False

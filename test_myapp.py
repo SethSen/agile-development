@@ -15,9 +15,6 @@ def client():
 
     yield client
 
-    with app.app_context():
-        db.drop_all()
-
 
 # Test that the home page returns a successful response.
 def test_home_page(client):
