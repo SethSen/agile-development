@@ -1,5 +1,6 @@
 from flask import Flask, redirect, url_for, render_template, request, session
-from flask_sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy 
+from sqlalchemy.exc import IntegrityError
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired
@@ -8,7 +9,6 @@ import secrets
 
 # Create Flask App
 app = Flask(__name__)
-
 # SQL Alchemy Database
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///locations.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -20,9 +20,13 @@ db = SQLAlchemy(app)
 #Table consist of: name, location, hours of operation, contact information, link to website, type of location
 class Locations(db.Model):
     id = db.Column("id", db.Integer, primary_key=True)
+<<<<<<< HEAD
     name = db.Column(db.String(100), nullable=False, unique=False)
+=======
+    name = db.Column(db.String(100), nullable=False)
+>>>>>>> 87623af38ac300ca3bf856cf5139358d4649b636
     city = db.Column(db.String(100))
-    address = db.Column(db.String(100), unique=True)
+    address = db.Column(db.String(100))
     hours = db.Column(db.String(100))
     link = db.Column(db.String(100))
     phone = db.Column(db.String(100))
@@ -175,8 +179,6 @@ def user_data():
     else:
         return redirect("login")
 
-
-
 # Allow admin to delete locations
 @app.route("/admin/delete/<int:location_id>")
 def delete_location(location_id):
@@ -200,21 +202,6 @@ def admin():
     if "admin" in session:
         form = UserForm()
         # Allowing admin to add locations
-        if request.method == "POST" and form.validate_on_submit():
-            name = form.name.data
-            city = form.city.data
-            address = form.address.data
-            hours = form.hours.data
-            link = form.link.data
-            phone = form.phone.data
-            location_type = form.location_type.data
-
-            new_location = Locations(name=name, city=city, address=address, hours=hours, link=link, phone=phone, location_type=location_type)
-            db.session.add(new_location)
-            db.session.commit()
-
-            return redirect("admin")
-
         search_query = request.args.get("search_query")
         filter_type = request.args.get("filter_type")
 
@@ -228,6 +215,40 @@ def admin():
                 locations = Locations.query.filter_by(location_type=filter_type).all()
         else:
             locations = Locations.query.all()
+
+        #removed form.validate_on_submit
+        #[[NEEDS FIX: Handle case sensitivity ]]
+        if request.method == "POST":
+            name = form.name.data
+            city = form.city.data
+            address = form.address.data
+            open_time = request.form.get("open")
+            close_time = request.form.get("close")
+            link = form.link.data
+            phone = request.form.get("phone")
+            location_type = form.location_type.data
+
+
+
+            #Format Phone number
+            if "-" in phone:
+                processed_phone = phone
+            else:
+                phone_digits = [*phone]
+                phone_digits.insert(3, "-")
+                phone_digits.insert(7, "-")
+                processed_phone = ''.join(phone_digits)
+            #Format Hours of operation
+            open_hours = f'{open_time} - {close_time}'
+            new_location = Locations(name=name, city=city, address=address, hours=open_hours, link=link, phone=processed_phone, location_type=location_type)
+            db.session.add(new_location)
+            # Handle Integrity Error from duplicate location names/addresses added to the database.
+            try:
+                db.session.commit()
+            except IntegrityError:
+                db.session.rollback()
+                return render_template("admin.html", form=form, locations=locations, filter_type=filter_type, search_query=search_query, error="Names and Addresses entered must be unique")
+            return redirect("admin")
 
         return render_template("admin.html", form=form, locations=locations, filter_type=filter_type, search_query=search_query)
     return redirect("login")
