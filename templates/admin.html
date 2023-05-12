@@ -14,7 +14,7 @@
         <form method="POST" action="{{ url_for('admin') }}">
             {{ form.csrf_token }}
 
-            <!-- {{ form.name.label }} {{ form.name }} -->
+            
             <label for="name">Name</label>
             <input id="name" name="name" required type="text">
             {{ form.city.label }}
@@ -25,10 +25,10 @@
                 <option value="Surrey">Surrey</option>
                 <option value="Richmond">Richmond</option>
             </select>
+
             <br></br>
             <label for="address">Address</label>
             <input id="address" name="address" required type="text">
-            <!-- {{ form.address.label }} {{ form.address }} -->
             <br></br>
 
             <label>Hours of Operation -</label>
@@ -50,7 +50,7 @@
             
        
             <br> <br>
-            {{ form.location_type.label }}
+            <label for="location_type">Facility Type</label>
             <select name="location_type">
             <option value="Cafe">Cafe</option>
             <option value="School">School</option>
