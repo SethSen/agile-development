@@ -4,19 +4,54 @@
     <link rel="stylesheet" href="/static/admin.css" />
     <h2>Add New Location</h2>
     <br>
+    {% if error %}
+    <p style="color:red">{{error}}</p>
+    {% endif %}
     <div class="shadow p-3 mb-5 bg-body-tertiary rounded">
-        <form method="POST" action="{{ url_for('new_location') }}">
+        <form method="POST" action="{{ url_for('admin') }}">
             {{ form.csrf_token }}
-            {{ form.name.label }} {{ form.name }}
-            {{ form.city.label }} {{ form.city }}
+
+            <!-- {{ form.name.label }} {{ form.name }} -->
+            <label for="name">Name</label>
+            <input id="name" name="name" required type="text">
+            {{ form.city.label }}
+            <select name="city">
+                <option value="Vancouver">Vancouver</option>
+                <option value="Burnaby">Burnaby</option>
+                <option value="Coquitlam">Coquitlam</option>
+                <option value="Surrey">Surrey</option>
+                <option value="Richmond">Richmond</option>
+            </select>
+            <br></br>
+            <label for="address">Address</label>
+            <input id="address" name="address" required type="text">
+            <!-- {{ form.address.label }} {{ form.address }} -->
+            <br></br>
+
+            <label>Hours of Operation -</label>
+            <label for="open">Open:</label>
+            <input type="time" name="open" required><br></br>
+            <label for="close" style="margin-left: 151.64px;">Close:</label>
+            <input type="time" name="close" required><br></br>
+            
+            <label for="link">Link to Website</label>
+            <input id="link" name="link" required type="text">
+
+            {{ form.phone.label }}
+            <input id="phone" name="phone" required 
+            type="text"
+            pattern="\d{10}|\d{3}-\d{3}-\d{4}"
+            oninvalid="setCustomValidity('Please enter the proper format : (XXX-XXX-XXXX)')"
+            placeholder="XXX-XXX-XXXX">
+
             <br> <br>
-            {{ form.address.label }} {{ form.address }}
-            {{ form.hours.label }} {{ form.hours }}
-            <br> <br>
-            {{ form.link.label }} {{ form.link }}
-            {{ form.phone.label }} {{ form.phone }}
-            <br> <br>
-            {{ form.location_type.label }} {{ form.location_type }}
+            {{ form.location_type.label }}
+            <select name="location_type">
+            <option value="Cafe">Cafe</option>
+            <option value="School">School</option>
+            <option value="Library">Library</option>
+            <option value="Other">Other</option>
+            </select>
             <br> <br>
             {{ form.submit }}
         </form>

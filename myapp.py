@@ -1,5 +1,6 @@
 from flask import Flask, redirect, url_for, render_template, request, session
-from flask_sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy 
+from sqlalchemy.exc import IntegrityError
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired
@@ -8,7 +9,6 @@ import secrets
 
 # Create Flask App
 app = Flask(__name__)
-
 # SQL Alchemy Database
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///locations.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -20,9 +20,9 @@ db = SQLAlchemy(app)
 #Table consist of: name, location, hours of operation, contact information, link to website, type of location
 class Locations(db.Model):
     id = db.Column("id", db.Integer, primary_key=True)
-    name = db.Column(db.String(100), nullable=False, unique=True)
+    name = db.Column(db.String(100), nullable=False)
     city = db.Column(db.String(100))
-    address = db.Column(db.String(100), unique=True)
+    address = db.Column(db.String(100))
     hours = db.Column(db.String(100))
     link = db.Column(db.String(100))
     phone = db.Column(db.String(100))
@@ -181,17 +181,40 @@ def edit_location(location_id):
         location_to_edit = Locations.query.get_or_404(location_id)
         form = UserForm()
         # Allowing admin to edit locations
-        if request.method == "POST" and form.validate_on_submit():
+        #removed form.validate_on_submit
+        #[[NEEDS FIX: Handle case sensitivity ]]
+        if request.method == "POST":
+            #Format Phone number
+            phone = request.form.get("phone")
+            if "-" in phone:
+                processed_phone = phone
+            else:
+                phone_digits = [*phone]
+                phone_digits.insert(3, "-")
+                phone_digits.insert(7, "-")
+                processed_phone = ''.join(phone_digits)
+
+            #Format Hours of operation
+            open_time = request.form.get("open")
+            close_time = request.form.get("close")
+            open_hours = f'{open_time} - {close_time}'
+            # new_location = Locations(name=name, city=city, address=address, hours=open_hours, link=link, phone=processed_phone, location_type=location_type)
+            # db.session.add(new_location)
+
             location_to_edit.name = form.name.data
             location_to_edit.city = form.city.data
             location_to_edit.address = form.address.data
-            location_to_edit.hours = form.hours.data
+            location_to_edit.hours = open_hours
             location_to_edit.link = form.link.data
-            location_to_edit.phone = form.phone.data
+            location_to_edit.phone = processed_phone
             location_to_edit.location_type = form.location_type.data
-            db.session.commit()
+
+            # Handle Integrity Error from duplicate location names/addresses added to the database.
+            try:
+                db.session.commit()
+            except IntegrityError:
+                db.session.rollback()
             return redirect(url_for("admin"))
-        
         return render_template("edit_location.html", form=form, location=location_to_edit)
     return redirect(url_for("login"))
 
@@ -217,6 +240,7 @@ def delete_request(request_id):
 def admin():
     if "admin" in session:
         form = UserForm()
+        # Allowing admin to add locations
         search_query = request.args.get("search_query")
         filter_type = request.args.get("filter_type")
 
@@ -231,6 +255,7 @@ def admin():
         else:
             locations = Locations.query.all()
 
+
         return render_template("admin.html", form=form, locations=locations, filter_type=filter_type, search_query=search_query)
     return redirect("login")
 
@@ -239,19 +264,37 @@ def new_location():
     if "admin" in session:
         form = UserForm()
         # Allowing admin to add locations
-        if request.method == "POST" and form.validate_on_submit():
+        #removed form.validate_on_submit
+        #[[NEEDS FIX: Handle case sensitivity ]]
+        if request.method == "POST":
             name = form.name.data
             city = form.city.data
             address = form.address.data
-            hours = form.hours.data
+            open_time = request.form.get("open")
+            close_time = request.form.get("close")
             link = form.link.data
-            phone = form.phone.data
+            phone = request.form.get("phone")
             location_type = form.location_type.data
 
-            new_location = Locations(name=name, city=city, address=address, hours=hours, link=link, phone=phone, location_type=location_type)
-            db.session.add(new_location)
-            db.session.commit()
+            #Format Phone number
+            if "-" in phone:
+                processed_phone = phone
+            else:
+                phone_digits = [*phone]
+                phone_digits.insert(3, "-")
+                phone_digits.insert(7, "-")
+                processed_phone = ''.join(phone_digits)
 
+            #Format Hours of operation
+            open_hours = f'{open_time} - {close_time}'
+            new_location = Locations(name=name, city=city, address=address, hours=open_hours, link=link, phone=processed_phone, location_type=location_type)
+            db.session.add(new_location)
+
+            # Handle Integrity Error from duplicate location names/addresses added to the database.
+            try:
+                db.session.commit()
+            except IntegrityError:
+                db.session.rollback()
             return redirect(url_for("admin"))
         return render_template("new_location.html", form=form)
     return redirect("login")
