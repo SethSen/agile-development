@@ -175,8 +175,8 @@ def user_data():
     else:
         return redirect("login")
 
-@app.route("/admin/edit/<int:location_id>")
-def edit_location(location_id, methods=["GET", "POST"]):
+@app.route("/admin/edit/<int:location_id>", methods=["GET", "POST"])
+def edit_location(location_id):
     if "admin" in session:
         location_to_edit = Locations.query.get_or_404(location_id)
         form = UserForm()
@@ -193,7 +193,7 @@ def edit_location(location_id, methods=["GET", "POST"]):
             return redirect(url_for("admin"))
         
         return render_template("edit_location.html", form=form, location=location_to_edit)
-    return redirect(url_for("admin"))
+    return redirect(url_for("login"))
 
 # Allow admin to delete locations
 @app.route("/admin/delete/<int:location_id>")
