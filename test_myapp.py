@@ -1,4 +1,7 @@
 import pytest
+import time
+import random
+import string
 from myapp import app, db, Locations, RequestLocation
 
 
@@ -30,10 +33,12 @@ def test_request_location_page(client):
 
 # Test submitting a form to request a location.
 def test_post_request_location(client):
+    unique_string = str(time.time()) + ''.join(random.choices(string.ascii_uppercase + string.digits, k=5))
+    
     rv = client.post('/request-location', data={
-        'name': 'test',
+        'name': 'test' + unique_string,
         'city': 'testcity',
-        'address': 'testaddress',
+        'address': 'testaddress' + unique_string,
         'hours': 'testhours',
         'link': 'testlink',
         'phone': 'testphone',
@@ -42,8 +47,34 @@ def test_post_request_location(client):
     assert rv.status_code == 200
 
     with app.app_context():
-        location = RequestLocation.query.filter_by(name='test').first()
+        location = RequestLocation.query.filter_by(name='test' + unique_string).first()
         assert location is not None
+
+        
+
+# Test that admin can enter a location.
+def test_admin_add_location(client):
+    with client.session_transaction() as sess:
+        sess['admin'] = 'admin'
+    
+    unique_string = str(time.time()) + ''.join(random.choices(string.ascii_uppercase + string.digits, k=5))
+
+    rv = client.post('/admin', data={
+        'name': 'test' + unique_string,
+        'city': 'testcity',
+        'address': 'testaddress' + unique_string,
+        'hours': 'testhours',
+        'link': 'testlink',
+        'phone': 'testphone',
+        'location_type': 'testtype'
+    }, follow_redirects=True)
+    
+    assert rv.status_code == 200
+
+    with app.app_context():
+        location = Locations.query.filter_by(name='test' + unique_string).first()
+        assert location is not None
+
 
 
 # Test accessing the admin page without being logged in; should redirect to login.

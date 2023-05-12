@@ -40,7 +40,7 @@ class Locations(db.Model):
 # Allowing user to request a location
 class RequestLocation(db.Model):
     id = db.Column("id", db.Integer, primary_key=True)
-    name = db.Column(db.String(100), nullable=False, unique=True)
+    name = db.Column(db.String(100), nullable=False)
     city = db.Column(db.String(100))
     address = db.Column(db.String(100), unique=True)
     hours = db.Column(db.String(100))
@@ -76,27 +76,7 @@ acc = {"admin":"admin"}
 def home():
     return render_template("index.html")
 
-@app.route("/request-location", methods=["GET", "POST"])
-def request_location():
-    form = UserForm()
-    if request.method == "POST" and form.validate_on_submit():
-        name = form.name.data
-        city = form.city.data
-        address = form.address.data
-        hours = form.hours.data
-        link = form.link.data
-        phone = form.phone.data
-        location_type = form.location_type.data
 
-        new_request = RequestLocation(name=name, city=city, address=address, hours=hours, link=link, phone=phone, location_type=location_type)
-        db.session.add(new_request)
-        db.session.commit()
-
-        return redirect(url_for("request_location"))
-
-    requests = RequestLocation.query.all()
-
-    return render_template("request.html", form=form, requests=requests)
 
 # Adding a request to the location database
 @app.route("/user_data/add/<int:request_id>")
@@ -292,8 +272,47 @@ def new_location():
             except IntegrityError:
                 db.session.rollback()
             return redirect(url_for("admin"))
+
         return render_template("new_location.html", form=form)
     return redirect(url_for("login"))
+
+@app.route("/request-location", methods=["GET", "POST"])
+def request_location():
+    form = UserForm()
+    if request.method == "POST":
+        name = form.name.data
+        city = form.city.data
+        address = form.address.data
+        open_time = request.form.get("open")
+        close_time = request.form.get("close")
+        link = form.link.data
+        phone = request.form.get("phone")
+        location_type = form.location_type.data
+
+        #Format Phone number
+        if "-" in phone:
+            processed_phone = phone
+        else:
+            phone_digits = [*phone]
+            phone_digits.insert(3, "-")
+            phone_digits.insert(7, "-")
+            processed_phone = ''.join(phone_digits)
+        #Format Hours of operation
+        open_hours = f'{open_time} - {close_time}'
+        new_location = RequestLocation(name=name, city=city, address=address, hours=open_hours, link=link, phone=processed_phone, location_type=location_type)
+        db.session.add(new_location)
+        # [[NEEDS FIX: When user submits location request check if location exists in  current locations database. If location not in current locations database
+        # then add user request to requests database]]
+        try:
+            db.session.commit()
+        except IntegrityError:
+            db.session.rollback()
+
+        return redirect(url_for("request_location"))
+
+    requests = RequestLocation.query.all()
+
+    return render_template("request.html", form=form, requests=requests)
 
 @app.route("/login")
 def login():
