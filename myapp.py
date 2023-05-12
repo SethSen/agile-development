@@ -197,6 +197,20 @@ def admin():
     if "admin" in session:
         form = UserForm()
         # Allowing admin to add locations
+        search_query = request.args.get("search_query")
+        filter_type = request.args.get("filter_type")
+
+        if search_query:
+            search_query = f"%{search_query.lower()}%"
+            locations = Locations.query.filter(Locations.name.ilike(search_query)).all()
+        elif filter_type:
+            if filter_type == "Other":
+                locations = Locations.query.filter(Locations.location_type.notin_(["Cafe", "School", "Library"])).all()
+            else:
+                locations = Locations.query.filter_by(location_type=filter_type).all()
+        else:
+            locations = Locations.query.all()
+            
         if request.method == "POST" and form.validate_on_submit():
             name = form.name.data
             city = form.city.data
@@ -212,19 +226,6 @@ def admin():
 
             return redirect("admin")
 
-        search_query = request.args.get("search_query")
-        filter_type = request.args.get("filter_type")
-
-        if search_query:
-            search_query = f"%{search_query.lower()}%"
-            locations = Locations.query.filter(Locations.name.ilike(search_query)).all()
-        elif filter_type:
-            if filter_type == "Other":
-                locations = Locations.query.filter(Locations.location_type.notin_(["Cafe", "School", "Library"])).all()
-            else:
-                locations = Locations.query.filter_by(location_type=filter_type).all()
-        else:
-            locations = Locations.query.all()
 
         return render_template("admin.html", form=form, locations=locations, filter_type=filter_type, search_query=search_query)
     return redirect("login")
