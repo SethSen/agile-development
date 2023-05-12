@@ -8,13 +8,13 @@
     <p style="color:red">{{error}}</p>
     {% endif %}
     <div class="shadow p-3 mb-5 bg-body-tertiary rounded">
-        <form method="POST" action="{{ url_for('admin') }}">
+        <form method="POST" action="{{ url_for('edit_location', location_id=location.id) }}">
             {{ form.csrf_token }}
 
             <!-- {{ form.name.label }} {{ form.name }} -->
             <label for="name">Name</label>
             <input id="name" name="name" required type="text" value="{{ location.name }}">
-            {{ form.city.label }}
+            <label for="city">City</label>
             <select name="city">
                 <option value="{{ location.city }}">Current: {{ location.city }}</option>
                 <option value="Vancouver">Vancouver</option>
@@ -37,7 +37,7 @@
             <label for="link">Link to Website</label>
             <input id="link" name="link" required type="text" value="{{ location.link }}">
 
-            {{ form.phone.label }}
+            <label for="phone">Phone Number</label>
             <input id="phone" name="phone" required 
             type="text"
             pattern="\d{10}|\d{3}-\d{3}-\d{4}"
@@ -45,7 +45,7 @@
             placeholder="XXX-XXX-XXXX" value="{{ location.phone }}">
 
             <br> <br>
-            {{ form.location_type.label }}
+            <label for="location_type">Type of Location</label>
             <select name="location_type">
                 <option value="{{ location.location_type }}">Current: {{ location.location_type }} </option>
                 <option value="Cafe">Cafe</option>

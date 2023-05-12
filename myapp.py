@@ -198,8 +198,6 @@ def edit_location(location_id):
             open_time = request.form.get("open")
             close_time = request.form.get("close")
             open_hours = f'{open_time} - {close_time}'
-            # new_location = Locations(name=name, city=city, address=address, hours=open_hours, link=link, phone=processed_phone, location_type=location_type)
-            # db.session.add(new_location)
 
             location_to_edit.name = form.name.data
             location_to_edit.city = form.city.data
@@ -234,8 +232,6 @@ def delete_request(request_id):
     db.session.commit()
     return redirect(url_for("user_data"))
 
-
-
 @app.route("/admin", methods=["GET", "POST"])
 def admin():
     if "admin" in session:
@@ -255,9 +251,8 @@ def admin():
         else:
             locations = Locations.query.all()
 
-
         return render_template("admin.html", form=form, locations=locations, filter_type=filter_type, search_query=search_query)
-    return redirect("login")
+    return redirect(url_for("login"))
 
 @app.route("/admin/new_location", methods=["GET", "POST"])
 def new_location():
@@ -267,16 +262,13 @@ def new_location():
         #removed form.validate_on_submit
         #[[NEEDS FIX: Handle case sensitivity ]]
         if request.method == "POST":
-            name = form.name.data
-            city = form.city.data
-            address = form.address.data
+            #Format Hours of operation
             open_time = request.form.get("open")
             close_time = request.form.get("close")
-            link = form.link.data
-            phone = request.form.get("phone")
-            location_type = form.location_type.data
+            open_hours = f'{open_time} - {close_time}'
 
             #Format Phone number
+            phone = request.form.get("phone")
             if "-" in phone:
                 processed_phone = phone
             else:
@@ -285,8 +277,12 @@ def new_location():
                 phone_digits.insert(7, "-")
                 processed_phone = ''.join(phone_digits)
 
-            #Format Hours of operation
-            open_hours = f'{open_time} - {close_time}'
+            name = form.name.data
+            city = form.city.data
+            address = form.address.data
+            link = form.link.data
+            location_type = form.location_type.data
+            
             new_location = Locations(name=name, city=city, address=address, hours=open_hours, link=link, phone=processed_phone, location_type=location_type)
             db.session.add(new_location)
 
@@ -297,7 +293,7 @@ def new_location():
                 db.session.rollback()
             return redirect(url_for("admin"))
         return render_template("new_location.html", form=form)
-    return redirect("login")
+    return redirect(url_for("login"))
 
 @app.route("/login")
 def login():
@@ -315,7 +311,7 @@ def auth():
         session["admin"] = user
         return redirect("admin")
     else:
-        return redirect("login")
+        return redirect(url_for("admin"))
 
 @app.route("/logout")
 def logout():
