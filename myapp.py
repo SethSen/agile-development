@@ -252,9 +252,10 @@ def request_location():
             processed_phone = ''.join(phone_digits)
         #Format Hours of operation
         open_hours = f'{open_time} - {close_time}'
-        new_location = Locations(name=name, city=city, address=address, hours=open_hours, link=link, phone=processed_phone, location_type=location_type)
+        new_location = RequestLocation(name=name, city=city, address=address, hours=open_hours, link=link, phone=processed_phone, location_type=location_type)
         db.session.add(new_location)
-        # Handle Integrity Error from duplicate location names/addresses added to the database.
+        # [[NEEDS FIX: When user submits location request check if location exists in  current locations database. If location not in current locations database
+        # then add user request to requests database]]
         try:
             db.session.commit()
         except IntegrityError:
