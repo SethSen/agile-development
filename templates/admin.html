@@ -5,6 +5,7 @@
     <h1>Admin page</h1>
     <button type="button" class="btn btn-primary" onclick="window.location.href='/user_data'">User Data</button>
     <button type="button" class="btn btn-primary" onclick="window.location.href='/admin/new_location'">Add New Location</button>
+    <button type="button" class="btn btn-primary" onclick="window.location.href='/logout'">Logout</button>
     <br>
     <h2>Current Locations</h2>
     <div class="d-flex justify-content-between">
@@ -49,5 +50,4 @@
             {% endfor %}
         </tbody>
     </table>
-    <button type="button" class="btn btn-primary" onclick="window.location.href='/logout'">Logout</button>
 {% endblock %}
