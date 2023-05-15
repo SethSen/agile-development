@@ -42,7 +42,7 @@
                 <td>{{ location.city }}</td>
                 <td>{{ location.address }}</td>
                 <td>{{ location.hours }}</td>
-                <td>{{ location.link }}</td>
+                <td><a href="{{ location.link }}" target="_blank">{{ location.link }}</a></td>
                 <td>{{ location.phone }}</td>
                 <td>{{ location.location_type }}</td>
                 <td><a href="{{ url_for('edit_location', location_id=location.id) }}" class="btn btn-warning btn-sm">Edit</a></td>
