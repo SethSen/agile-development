@@ -18,8 +18,17 @@
         <div class="nav-links">
           <ul>
             <li><a href="/">HOME</a></li>
-            <li><a href="/admin">ADMIN LOGIN</a></li>
-            <li><a href="/request-location">REQUEST LOCATION</a></li>
+            <li class="dropdown">LOCATIONS
+              <div class="dropdown-content">
+                <a href="{{ url_for('burnaby') }}">BURNABY</a>
+                <a href="{{ url_for('coquitlam') }}">COQUITLAM</a>
+                <a href="{{ url_for('richmond') }}">RICHMOND</a>
+                <a href="{{ url_for('surrey') }}">SURREY</a>
+                <a href="{{ url_for('vancouver') }}">VANCOUVER</a>
+              </div>
+            </li>
+            <li><a href="{{ url_for('admin') }}">ADMIN LOGIN</a></li>
+            <li><a href="{{ url_for('request_location') }}">REQUEST LOCATION</a></li>
           </ul>
         </div>
     </section>
