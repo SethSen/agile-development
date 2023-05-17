@@ -2,22 +2,26 @@
 {% block title %}Surrey{% endblock %}
 {% block content %}
     <link rel="stylesheet" href="/static/main.css" />
-    <h1>Locations</h1>
-    <br>
-    <div class="d-flex justify-content-between">
+
+    <section class="city-dashboard surrey-dashboard">
+        <h1>Surrey</h1>
+    </section>
+    
+    <!-- Filter Buttons -->
+    <div class="filter d-flex justify-content-between">
         <div>
-          <button type="button" class="btn btn-primary mr-2" onclick="window.location.href='/surrey?filter_type=Cafe'">Cafe</button>
-          <button type="button" class="btn btn-primary mr-2" onclick="window.location.href='/surrey?filter_type=School'">School</button>
-          <button type="button" class="btn btn-primary mr-2" onclick="window.location.href='/surrey?filter_type=Library'">Library</button>
-          <button type="button" class="btn btn-primary mr-2" onclick="window.location.href='/surrey?filter_type=Other'">Other</button>
-          <button type="button" class="btn btn-primary" onclick="window.location.href='/surrey'">All</button>
+            <button type="button" class="btn btn-primary mr-2" onclick="window.location.href='/surrey?filter_type=Cafe'">Cafe</button>
+            <button type="button" class="btn btn-primary mr-2" onclick="window.location.href='/surrey?filter_type=School'">School</button>
+            <button type="button" class="btn btn-primary mr-2" onclick="window.location.href='/surrey?filter_type=Library'">Library</button>
+            <button type="button" class="btn btn-primary mr-2" onclick="window.location.href='/surrey?filter_type=Other'">Other</button>
+            <button type="button" class="btn btn-primary" onclick="window.location.href='/surrey'">All</button>
         </div>
-        <form method="GET" action="/surrey" class="form-inline">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search_query" value="{{ search_query }}">
-              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        <form method="GET" action="{{ url_for('surrey') }}" class="form-inline search-form">
+            <button class="btn search-btn my-2 my-sm-0" type="submit">Filter</button>
+            <input class="search-input" type="search" placeholder="Search" aria-label="Search" name="search_query" value="{{ search_query or '' }}">
         </form>
     </div>
-    <br>
+
     <table class="table table-striped table-hover">
         <thead>
             <tr>

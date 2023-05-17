@@ -107,15 +107,17 @@ def get_filtered_locations(city=None):
         query = query.filter_by(city=city)
 
     if search_query:
-        search_query = f"%{search_query.lower()}%"
-        query = query.filter(Locations.name.ilike(search_query))
+        search_query = f"%{search_query.lower().strip('%')}%"
+        query = query.filter((Locations.name.ilike(search_query)) | (Locations.city.ilike(search_query)))
     elif filter_type:
         if filter_type == "Other":
             query = query.filter(Locations.location_type.notin_(["Cafe", "School", "Library"]))
         else:
             query = query.filter_by(location_type=filter_type)
 
-    return query.all(), filter_type, search_query
+    # Remove '%' characters from start and end of search_query for the final display.
+    return query.all(), filter_type, search_query.strip('%') if search_query else search_query
+
 
 @app.route("/vancouver")
 def vancouver():
@@ -145,7 +147,7 @@ def coquitlam():
 @app.route("/locations")
 def locations():
     locations, filter_type, search_query = get_filtered_locations()
-    return render_template("locations.html", locations=locations, filter_type=filter_type, search_query=search_query)
+    return render_template("admin.html", locations=locations, filter_type=filter_type, search_query=search_query)
 
 @app.route("/user_data")
 def user_data():

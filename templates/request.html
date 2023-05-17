@@ -2,8 +2,11 @@
 {% block title %}Request Location{% endblock %}
 {% block content %}
     <link rel="stylesheet" href="/static/main.css" />
-    <h1>Request a Location</h1>
-    <br>
+    
+    <section class="dashboard">
+        <h1>Request A Location</h1>
+    </section>
+
     <div class="shadow p-3 mb-5 bg-body-tertiary rounded">
         <form method="POST" action="{{ url_for('request_location') }}">
             {{ form.csrf_token }}
