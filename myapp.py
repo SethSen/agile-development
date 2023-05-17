@@ -51,27 +51,27 @@ def get_filtered_locations(city=None):
     return query.all(), filter_type, search_query.strip('%') if search_query else search_query
 
 
-@app.route("/vancouver")
+@app.route("/location/vancouver")
 def vancouver():
     locations, filter_type, search_query = get_filtered_locations(city="Vancouver")
     return render_template("vancouver.html", locations=locations, filter_type=filter_type, search_query=search_query)
 
-@app.route("/burnaby")
+@app.route("/location/burnaby")
 def burnaby():
     locations, filter_type, search_query = get_filtered_locations(city="Burnaby")
     return render_template("burnaby.html", locations=locations, filter_type=filter_type, search_query=search_query)
 
-@app.route("/surrey")
+@app.route("/location/surrey")
 def surrey():
     locations, filter_type, search_query = get_filtered_locations(city="Surrey")
     return render_template("surrey.html", locations=locations, filter_type=filter_type, search_query=search_query)
 
-@app.route("/richmond")
+@app.route("/location/richmond")
 def richmond():
     locations, filter_type, search_query = get_filtered_locations(city="Richmond")
     return render_template("richmond.html", locations=locations, filter_type=filter_type, search_query=search_query)
 
-@app.route("/coquitlam")
+@app.route("/location/coquitlam")
 def coquitlam():
     locations, filter_type, search_query = get_filtered_locations(city="Coquitlam")
     return render_template("coquitlam.html", locations=locations, filter_type=filter_type, search_query=search_query)
