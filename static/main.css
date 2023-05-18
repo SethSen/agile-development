@@ -332,3 +332,17 @@ nav a{
   background-image: url('image/surrey-dashboard.jpg');
   background-position: center 55%;
 }
+
+/* Add and Edit Locations */
+.cancel {
+  margin: 0px 15px;
+  display: grid;
+  height: fit-content(100px);
+  grid-template-columns: fit-content(100px) fit-content(200px);
+  column-gap: 15px;
+}
+
+.cancel button:hover {
+  filter: brightness(150%);
+  font-weight: bold;
+}

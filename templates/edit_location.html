@@ -1,17 +1,16 @@
 {% extends 'base.html' %}
 {% block title %}Edit Location{% endblock %}
 {% block content %}
-    <link rel="stylesheet" href="/static/admin.css" />
-    <h2>Currently Editing: {{ location.name }}</h2>
-    <br>
+    <link rel="stylesheet" href="/static/main.css" />
+    <section class="dashboard">
+        <h1>Currently Editing: {{ location.name }}</h1>
+    </section>
     {% if error %}
     <p style="color:red">{{error}}</p>
     {% endif %}
-    <div class="shadow p-3 mb-5 bg-body-tertiary rounded">
+    <div class="shadow p-3 mb-4 bg-body-tertiary rounded">
         <form method="POST" action="{{ url_for('edit_location', location_id=location.id) }}">
             {{ form.csrf_token }}
-
-            <!-- {{ form.name.label }} {{ form.name }} -->
             <label for="name">Name</label>
             <input id="name" name="name" required type="text" value="{{ location.name }}">
             <label for="city">City</label>
@@ -57,6 +56,8 @@
             {{ form.submit }}
         </form>
     </div>
-    <a href="{{ url_for('admin') }}" class="btn btn-info btn-sm">Cancel</a>
-    <a href="{{ url_for('delete_location', location_id=location.id) }}" class="btn btn-danger btn-sm">Delete this location</a>
+    <div class="cancel">
+        <a href="{{ url_for('admin') }}"><button class="btn btn-info btn-sm">Cancel</button></a>
+        <a href="{{ url_for('delete_location', location_id=location.id) }}"><button class="btn btn-danger btn-sm">Delete this location</button></a>
+    </div>
 {% endblock %}
