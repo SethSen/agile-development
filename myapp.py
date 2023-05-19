@@ -79,7 +79,7 @@ def coquitlam():
 @app.route("/locations")
 def locations():
     locations, filter_type, search_query = get_filtered_locations()
-    return render_template("admin.html", locations=locations, filter_type=filter_type, search_query=search_query)
+    return render_template("locations.html", locations=locations, filter_type=filter_type, search_query=search_query)
 
 @app.route("/user_data")
 def user_data():
@@ -272,11 +272,6 @@ def logout():
     if "admin" in session:
         session.pop("admin")
     return redirect("/")
-
-# Handles page for 404 error
-@app.errorhandler(404)
-def not_found(e):
-    return render_template("404.html"), 404
 
 if __name__ == "__main__":
     with app.app_context():

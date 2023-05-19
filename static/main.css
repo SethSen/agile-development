@@ -232,7 +232,10 @@ nav a{
 
 
 .dashboard{
-  margin: 15px 5px;
+  margin-top: 50px;
+  margin-bottom: 15px;
+  margin-left: 5px;
+  margin-right:5px;
   padding-left: 30px;
   padding-top: 10px;
   padding-bottom: 1px;
@@ -294,7 +297,10 @@ nav a{
 /* Dashboard image */
 .city-dashboard {
   position: relative;
-  margin: 15px 0;
+  margin-bottom: 15px;
+  margin-left: 0;
+  margin-right: 0;
+  margin-top: 40px;
   padding: 100px; 
   color: #fff;
 }
@@ -339,6 +345,10 @@ nav a{
 .surrey-dashboard::before {
   background-image: url('image/surrey-dashboard.jpg');
   background-position: center 55%;
+}
+
+.locations-dashboard::before {
+  background-image: url('image/locations-dashboard.jpg');
 }
 
 /* Add and Edit Locations */
