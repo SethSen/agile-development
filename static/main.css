@@ -367,14 +367,14 @@ nav a{
 
 /* 404 page */
 .not-found {
-  min-height: 90vh;
+  min-height: 100vh;
   width: 100%;
   background-image: url(image/404.png);
   background-position: center;
   background-size: cover;
   position: relative;
   text-align: center;
-  padding-top: 150px;
+  padding-top: 200px;
 }
 
 .not-found h1 {
