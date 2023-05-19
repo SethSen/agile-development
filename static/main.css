@@ -294,7 +294,10 @@ nav a{
 /* Dashboard image */
 .city-dashboard {
   position: relative;
-  margin: 15px 0;
+  margin-bottom: 15px;
+  margin-left: 0;
+  margin-right: 0;
+  margin-top: 40px;
   padding: 100px; 
   color: #fff;
 }
@@ -341,6 +344,10 @@ nav a{
   background-position: center 55%;
 }
 
+.locations-dashboard::before {
+  background-image: url('image/locations-dashboard.jpg');
+}
+
 /* Add and Edit Locations */
 .cancel {
   margin: 0px 15px;
@@ -353,4 +360,33 @@ nav a{
 .cancel button:hover {
   filter: brightness(150%);
   font-weight: bold;
+}
+
+/* 404 page */
+.not-found {
+  min-height: 90vh;
+  width: 100%;
+  background-image: url(image/404.png);
+  background-position: center;
+  background-size: cover;
+  position: relative;
+  text-align: center;
+  padding-top: 150px;
+}
+
+.not-found h1 {
+  font-size: 150px;
+  color: rgb(215, 213, 228);
+}
+
+.not-found h2 {
+  font-size: 60px;
+  color: rgb(158, 155, 178);
+}
+
+.not-found a {
+  font-size: 25px;
+  color: #fff;
+  display: inline-block;
+  margin-top: 25px;
 }
