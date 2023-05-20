@@ -183,6 +183,7 @@ nav a{
   overflow: hidden;
 }
 
+
 .locations-col img {
   width: 100%;
   height: 100%;
@@ -192,6 +193,7 @@ nav a{
   transition: 0.4s;
   padding: 0;
 }
+
 
 .layer {
   background: transparent;
@@ -207,6 +209,7 @@ nav a{
   border-radius: 10px;
   transition: 0.4s;
 }
+
 
 .layer:hover {
   background: rgba(226, 0, 0, 0.7);
@@ -257,6 +260,7 @@ nav a{
 .card{
   margin-bottom: 30px;
   border: 3px solid #87708D;
+  background-image: radial-gradient(circle, #ffffff, #fcfbfc, #faf8f9, #f8f4f5, #f6f0f0);
 }
 
 /* Log Out Button In Admin Page */
@@ -266,8 +270,8 @@ nav a{
   margin: 15px 10px;
 }
 
-.study-locations h2{
-  margin: 20px 15px;
+.table-header h2{
+  margin: 20px 80px;
   font-weight: 600;
 }
 
@@ -275,7 +279,7 @@ nav a{
 .filter{
   display: flex;
   justify-content: space-between;
-  margin: 20px 15px;
+  margin: 20px 80px;
 }
 
 .filter button{
@@ -410,4 +414,56 @@ nav a{
   color: #fff;
   display: inline-block;
   margin-top: 25px;
+}
+
+/* Data Table */
+
+.box-table {
+  margin: 20px 80px;
+  background-image: radial-gradient(circle, #ffffff, #fcfbfc, #faf8f9, #f8f4f5, #f6f0f0);
+  border-radius: 8px;
+}
+
+.table-title {
+  font-size: 15px;
+  font-weight: 600;
+  background-color: #322F43;
+  color: #fff;
+}
+
+
+.table-row {
+  border-bottom: 2px solid #000;
+}
+
+.link-width {
+  width: 10%;
+}
+
+.phone-width {
+  width: 11%;
+}
+
+.action-width {
+  width: 12%;
+}
+
+td.cafe {
+  color: #924C66;
+  font-weight: 600;
+}
+
+td.school {
+  color: #D57468;
+  font-weight: 600;
+}
+
+td.library {
+  color: #FBB060;
+  font-weight: 600;
+}
+
+td.other{
+  color: #F9F871;
+  font-weight: 600;
 }
