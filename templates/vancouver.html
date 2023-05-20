@@ -10,11 +10,11 @@
     <!-- Filter Buttons -->
     <div class="filter d-flex justify-content-between">
         <div>
-            <button type="button" class="btn btn-primary mr-2" onclick="window.location.href='/vancouver?filter_type=Cafe'">Cafe</button>
-            <button type="button" class="btn btn-primary mr-2" onclick="window.location.href='/vancouver?filter_type=School'">School</button>
-            <button type="button" class="btn btn-primary mr-2" onclick="window.location.href='/vancouver?filter_type=Library'">Library</button>
-            <button type="button" class="btn btn-primary mr-2" onclick="window.location.href='/vancouver?filter_type=Other'">Other</button>
-            <button type="button" class="btn btn-primary" onclick="window.location.href='/vancouver'">All</button>
+            <button type="button" class="btn btn-primary mr-2" onclick="window.location.href='/location/vancouver?filter_type=Cafe'">Cafe</button>
+            <button type="button" class="btn btn-primary mr-2" onclick="window.location.href='/location/vancouver?filter_type=School'">School</button>
+            <button type="button" class="btn btn-primary mr-2" onclick="window.location.href='/location/vancouver?filter_type=Library'">Library</button>
+            <button type="button" class="btn btn-primary mr-2" onclick="window.location.href='/location/vancouver?filter_type=Other'">Other</button>
+            <button type="button" class="btn btn-primary" onclick="window.location.href='/location/vancouver'">All</button>
         </div>
         <form method="GET" action="{{ url_for('vancouver') }}" class="form-inline search-form">
             <button class="btn search-btn my-2 my-sm-0" type="submit">Filter</button>
