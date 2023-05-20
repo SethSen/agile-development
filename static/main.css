@@ -5,6 +5,11 @@
   font-family: 'Poppins', sans-serif;
 }
 
+body {
+  background-image: url('image/background.jpg');
+  background-repeat: repeat;
+}
+
 /* ---- Nav bar ---- */
 nav {
   position: fixed;
@@ -358,8 +363,24 @@ nav a{
 }
 
 .cancel button:hover {
-  filter: brightness(150%);
+  filter: brightness(100%);
   font-weight: bold;
+}
+
+.delete {
+  margin: 0px 1px;
+  display: grid;
+  height: fit-content(100px);
+  grid-template-columns: fit-content(100px) fit-content(200px);
+  column-gap: 15px;
+}
+
+/* Form box */
+.form-box {
+  padding: 20px 20px;
+  margin: 15px 20px;
+  background-image: radial-gradient(circle, #ffffff, #fcfbfc, #faf8f9, #f8f4f5, #f6f0f0);
+  border-radius: 8px;
 }
 
 /* 404 page */

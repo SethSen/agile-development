@@ -26,7 +26,6 @@
         <thead>
             <tr>
                 <th>Name</th>
-                <th>City</th>
                 <th>Address</th>
                 <th>Hours</th>
                 <th>Link</th>
@@ -39,7 +38,6 @@
             {% if location.city == "Burnaby" %}
             <tr>
                 <td>{{ location.name }}</td>
-                <td>{{ location.city }}</td>
                 <td>{{ location.address }}</td>
                 <td>{{ location.hours }}</td>
                 <td><a href="{{ location.link }}" target="_blank">{{ location.link }}</a></td>

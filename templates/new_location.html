@@ -10,7 +10,7 @@
     {% if error %}
     <p style="color:red">{{error}}</p>
     {% endif %}
-    <div class="shadow p-3 mb-4 bg-body-tertiary rounded">
+    <div class="shadow form-box">
         <form method="POST" action="{{ url_for('new_location') }}">
             {{ form.csrf_token }}
             <label for="name">Name</label>
@@ -58,6 +58,6 @@
         </form>
     </div>
     <div class="cancel">
-        <a href="{{ url_for('admin') }}"><button class="btn btn-info btn-sm">Cancel</button></a>
+        <a href="{{ url_for('admin') }}"><button class="btn btn-primary" style="background-color:#87708D;">Cancel</button></a>
     </div>
 {% endblock %}
