@@ -29,7 +29,7 @@
                     <td>{{ request.hours }}</td>
                     <td><a href="{{ request.link }}" target="_blank">{{ request.link }}</a></td>
                     <td>{{ request.phone }}</td>
-                    <td class="{{ location.location_type|lower }}">{{ location.location_type }}</td>
+                    <td class="{{ request.location_type|lower }}">{{ request.location_type }}</td>
                     <td class="action-width">
                         <button type="button" class="btn btn-success" onclick="window.location.href='/user_data/add/{{ request.id }}'">Add</button>
                         <button type="button" class="btn btn-danger" onclick="window.location.href='/user_data/delete/{{ request.id }}'">Delete</button>
