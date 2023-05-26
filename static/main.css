@@ -448,21 +448,21 @@ nav a{
 }
 
 td.cafe {
-  color: #924C66;
+  color: #720026;
   font-weight: 600;
 }
 
 td.school {
-  color: #D57468;
+  color: #CE4257;
   font-weight: 600;
 }
 
 td.library {
-  color: #FBB060;
+  color: #FF7F51;
   font-weight: 600;
 }
 
 td.other{
-  color: #F9F871;
+  color: #FF9B54;
   font-weight: 600;
 }
