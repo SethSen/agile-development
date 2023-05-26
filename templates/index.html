@@ -68,25 +68,5 @@
       </div>
 
     </section>
-    <script>
-      // Get current scroll position
-      let lastScroll = window.scrollY;
-      
-      // Hand scroll events on any webpage
-      window.addEventListener("scroll", () => {
-        
-      const nav = document.querySelector("nav");
-      // Hide nav bar if scrolling down
-        if (lastScroll < window.scrollY){
-          nav.classList.add("nav--hidden");
-        }
-        else {
-          nav.classList.remove("nav--hidden");
-
-        }
-      // Set current scroll to last
-        lastScroll = window.scrollY
-
-      })
-    </script>
+    
 {% endblock %}
