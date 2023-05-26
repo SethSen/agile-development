@@ -16,6 +16,9 @@ Simranjit Kaur
 
 ## Data Structure
 **HTML Files** - templates/
+
 **Database** - instance/locations.db
+
 **CSS File** - static/main.css
+
 **Images** - static/image/
