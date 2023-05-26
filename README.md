@@ -19,3 +19,8 @@ Simranjit Kaur <br>
 **Database** - instance/locations.db <br>
 **CSS File** - static/main.css <br>
 **Images** - static/image/ <br>
+
+## Admin Help
+```Login Details
+Username: admin
+Password: admin```
