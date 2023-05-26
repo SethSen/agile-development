@@ -21,6 +21,6 @@ Simranjit Kaur <br>
 **Images** - static/image/ <br>
 
 ## Admin Help
-```Login Details
+``Login Details
 Username: admin
-Password: admin```
+Password: admin``
