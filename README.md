@@ -2,11 +2,11 @@
 EduLocation helps you to find the best places to study in lower mainland based on your personal requirements.
 
 ## Group Members
-Sethavan Sen
-Kuangda Zhu
-Hoang Quyen Nguyen
-Nicolas Kayeh
-Simranjit Kaur
+Sethavan Sen <br>
+Kuangda Zhu <br>
+Hoang Quyen Nguyen <br>
+Nicolas Kayeh <br>
+Simranjit Kaur <br>
 
 ## Running on localhost
 1. Go into the virtual enviroment called myenv
@@ -15,7 +15,7 @@ Simranjit Kaur
 4. Copy the local host link and enter the link in the browser
 
 ## Data Structure
-**HTML Files** - templates/
-**Database** - instance/locations.db
-**CSS File** - static/main.css
-**Images** - static/image/
+**HTML Files** - templates/ <br>
+**Database** - instance/locations.db <br>
+**CSS File** - static/main.css <br>
+**Images** - static/image/ <br>
