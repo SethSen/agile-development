@@ -153,6 +153,8 @@ def admin():
         search_query = request.args.get("search_query")
         filter_type = request.args.get("filter_type")
 
+        display_search_query = search_query.strip('%') if search_query else search_query
+
         if search_query:
             search_query = f"%{search_query.lower()}%"
             locations = Locations.query.filter(Locations.name.ilike(search_query)).all()
@@ -164,8 +166,9 @@ def admin():
         else:
             locations = Locations.query.all()
 
-        return render_template("admin.html", form=form, locations=locations, filter_type=filter_type, search_query=search_query)
+        return render_template("admin.html", form=form, locations=locations, filter_type=filter_type, search_query=display_search_query)
     return redirect(url_for("login"))
+
 
 @app.route("/admin/new_location", methods=["GET", "POST"])
 def new_location():
