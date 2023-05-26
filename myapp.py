@@ -96,7 +96,6 @@ def edit_location(location_id):
         form = UserForm()
         # Allowing admin to edit locations
         #removed form.validate_on_submit
-        #[[NEEDS FIX: Handle case sensitivity ]]
         if request.method == "POST":
             #Format Phone number
             phone = request.form.get("phone")
@@ -174,7 +173,6 @@ def new_location():
         form = UserForm()
         # Allowing admin to add locations
         #removed form.validate_on_submit
-        #[[NEEDS FIX: Handle case sensitivity ]]
         if request.method == "POST":
             #Format Hours of operation
             open_time = request.form.get("open")
@@ -235,7 +233,6 @@ def request_location():
         open_hours = f'{open_time} - {close_time}'
         new_location = RequestLocation(name=name, city=city, address=address, hours=open_hours, link=link, phone=processed_phone, location_type=location_type)
         db.session.add(new_location)
-        # [[NEEDS FIX: When user submits location request check if location exists in  current locations database. If location not in current locations database
         # then add user request to requests database]]
         try:
             db.session.commit()
