@@ -21,6 +21,23 @@ Simranjit Kaur <br>
 **Images** - static/image/ <br>
 
 ## Admin Help
-**Login Details** <br> <br>
-**Username:** admin <br>
-**Password:** admin <br>
+**Login Details** <br>
+Username: admin <br>
+Password: admin <br>
+
+**Adding A New Study Location**
+1. Log in as admin
+2. Click `Add Location`
+![Image](/static/image/1.png)
+4. Fill out study location details
+![Image](/static/image/2.png)
+6. Click Submit
+
+**Editing A Study Location**
+1. Log in as admin
+2. Scroll down to the database and find desired location
+3. Click edit on right side of the table
+![Image](/static/image/3.png)
+5. Change study location details
+![Image](/static/image/4.png)
+7. Click Submit
